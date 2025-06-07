@@ -38,9 +38,6 @@ jobs:
       ALLOW_DESTRUCTIVE: ${{ inputs.allow_destructive }}
 
     steps:
-      - name: Echo Azure Client ID
-        run: |
-          echo AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
       - name: Checkout code
         uses: actions/checkout@v4
 
