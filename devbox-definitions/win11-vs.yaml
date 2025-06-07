@@ -1,0 +1,15 @@
+# devbox-definitions/win11-vs.yaml
+name: win11-dev-vs2022
+description: Windows 11 Dev Box with Visual Studio 2022
+os: windows
+hardwareProfile:
+  vCPUs: 4
+  memory: 16GiB
+image:
+  reference:
+    publisher: MicrosoftWindowsDesktop
+    offer: windows-11
+    sku: win11-22h2-pro
+    version: latest
+setupTasks:
+  - task: install-vs

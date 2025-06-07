@@ -1,0 +1,93 @@
+name: "Terraform: Force State Unlock"
+
+on:
+  workflow_dispatch:
+    inputs:
+      lock_id:
+        description: 'Terraform Lock ID'
+        required: true
+        type: string
+      environment:
+        description: 'Select environment'
+        required: true
+        default: 'non-prod'
+        type: choice
+        options:
+          - non-prod
+          - prod
+      component:
+        description: 'Select component state file'
+        required: true
+        default: 'none'
+        type: choice
+        options:
+          - none
+          - network
+          - storage
+          - workspace
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  tf_unlock_state:
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ${{ format('./main/{0}', inputs.component) }}
+    env:
+      ARM_USE_OIDC: "true" 
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Azure Login via OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}      
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="../../modules/backend/common.tfbackend" \
+            -backend-config="container_name=${{ inputs.environment }}" \
+            -backend-config="key=${{ inputs.component }}/terraform.tfstate"
+
+      - name: Terraform Force Unlock
+        run: |
+          terraform force-unlock -force "${{ github.event.inputs.lock_id }}"
+
+      - name: Check Lock Status
+        run: |
+          terraform show -no-color | grep -i lock || echo "No active lock found"
+
+      #- name: Install expect (non-interactive)
+      #  run: |
+      #    sudo apt-get update
+      #    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y expect
+
+      #- name: Force Unlock Terraform State
+      #  run: |
+      #    LOCK_ID="${{ github.event.inputs.lock_id }}"
+      #    expect -c "
+      #    spawn terraform force-unlock $LOCK_ID
+      #    expect \"Enter a value:\"
+      #    send \"yes\r\"
+      #    expect eof
+      #    "
+        
+
+
+
+    
