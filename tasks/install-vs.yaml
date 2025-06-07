@@ -1,6 +1,0 @@
-# tasks/install-vs.yaml
-name: install-vs
-description: Install Visual Studio Community Edition
-os: windows
-script: |
-  choco install visualstudio2022community --yes
