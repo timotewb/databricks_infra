@@ -42,9 +42,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Echo Credentials
+      - name: Debug secret
         run: |
-          echo "ARM_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}"
+          echo "Secret length: ${#AZ_CREDS}"
+        env:
+          AZ_CREDS: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Azure Login
         uses: azure/login@v2
