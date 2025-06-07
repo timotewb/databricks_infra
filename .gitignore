@@ -22,3 +22,6 @@ ehthumbs.db
 # IDE-specific files (Optional, for specific IDEs like VS Code or IntelliJ)
 .vscode/
 .idea/
+.tfvars
+backend.tf
+tf.plan

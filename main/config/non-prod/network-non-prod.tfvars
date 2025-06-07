@@ -20,3 +20,5 @@ databricks_ncc = {
     name = "aue-dbac-retail-ncc-np01" # NCC for the non-production environment
   }
 }
+
+environment = "non-prod" # Specifies the deployment environment for this configuration
