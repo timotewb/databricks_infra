@@ -39,12 +39,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug secret
-        run: |
-          echo "Secret length: ${#AZ_CREDS}"
-        env:
-          AZ_CREDS: ${{ vars.AZURE_CREDENTIALS }}
-
       - name: Azure Login
         uses: azure/login@v2
         with:
