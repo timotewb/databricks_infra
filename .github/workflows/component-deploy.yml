@@ -31,10 +31,7 @@ jobs:
     env:
       TF_VAR_environment: ${{ inputs.environment }}
       ARM_USE_OIDC: "true" 
-      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-      ARM_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      ARM_CREDENTIALS: ${{ vars.AZURE_CREDENTIALS }}
       ALLOW_CHANGES: ${{ inputs.allow_changes }}
       ALLOW_DESTRUCTIVE: ${{ inputs.allow_destructive }}
 
@@ -46,7 +43,7 @@ jobs:
         run: |
           echo "Secret length: ${#AZ_CREDS}"
         env:
-          AZ_CREDS: ${{ secrets.AZURE_CREDENTIALS }}
+          AZ_CREDS: ${{ vars.AZURE_CREDENTIALS }}
 
       - name: Azure Login
         uses: azure/login@v2
