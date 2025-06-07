@@ -1,0 +1,3 @@
+resource_group_name  = "shared-resources-rg"
+storage_account_name = "sharedstorage0sa"
+
