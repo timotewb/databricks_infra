@@ -49,11 +49,11 @@ resource "databricks_metastore_assignment" "metastore" {
 }
 
 # Fetch each SCIM-synced admin group once at the account level
-data "databricks_group" "admin_groups" {
-  for_each     = var.workspaces
-  provider     = databricks.accounts
-  display_name = each.value.admin_group
-}
+# data "databricks_group" "admin_groups" {
+#   for_each     = var.workspaces
+#   provider     = databricks.accounts
+#   display_name = each.value.admin_group
+# }
 
 # Optional Delay to Allow Propagation to MWS APIs
 resource "null_resource" "workspace_propagation_delay" {
@@ -70,7 +70,7 @@ resource "databricks_mws_permission_assignment" "workspace_admin" {
   provider   = databricks.accounts
 
   workspace_id = each.value.workspace_id
-  principal_id = data.databricks_group.admin_groups[each.key].id
+  principal_id = var.admin_user_id
   permissions  = ["ADMIN"]
 }
 

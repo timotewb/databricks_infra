@@ -61,5 +61,5 @@ variable "tag_env_aliases" {
 variable "metastore_id" {
   description = "Databricks Unity Catalog Metastore ID"
   type        = string
-  default     = ""
+  default     = "6d7f2b45-dc09-4790-a3c4-f3bc088d7cee"
 }

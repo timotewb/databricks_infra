@@ -4,7 +4,7 @@
 
 # The Databricks Account ID used for all workspace deployments under this configuration.
 # This value is required for Terraform to authenticate and manage Databricks workspaces at the account level.
-databricks_account_id = "e05790b3-4261-4044-8485-0ca3e84065c6"
+# databricks_account_id = "e05790b3-4261-4044-8485-0ca3e84065c6"
 
 # The Databricks NCC name in the account cloud resources that contains private endpoint rules
 databricks_ncc_name = "ncc-retail"
@@ -46,3 +46,6 @@ workspaces = {
     admin_group   = "RDS-Admin"
   }
 }
+
+
+environment = "non-prod" # Specifies the deployment environment for this configuration

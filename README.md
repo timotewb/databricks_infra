@@ -1,5 +1,16 @@
 # databricks_infra
 
+## This Branch
+This branch will build a azure serverless 4 workspace databricks data platform. The terraform code is split into seperate "code bases" for each type of infrastructure which is easily extendable when new or additional infrastructure is required.
+
+The seperate code bases do have dependencies on each other when building the infrastructure for the first time.
+
+```mermaid
+graph LR
+A(network) --> B(workspace) --> C(storage) --> D(rbac)
+```
+
+
 ## Getting Started
 After cloning this repository check the below dependencies then follow the steps below.
 
@@ -8,6 +19,11 @@ After cloning this repository check the below dependencies then follow the steps
 - azure cli installed
 - shared resources resource group is created with a storage account and container available to write terraform state to.
 - service principal created with appropriate subscription permissions (Contributor, Role Based Access Control Administrator) and sared storage account permissions (Storage Blob Contributor)
+
+### Build infra
+
+>NOTE: the below steps assume you are building the non-prod environment using the network module.
+
 1. change directory into module you want to run e.g. from repo root 
 ```bash 
 cd main/network

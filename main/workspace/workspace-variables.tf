@@ -55,3 +55,30 @@ variable "workspaces" {
     admin_group   = string 
   }))
 }
+
+
+variable "subscription_id" {
+    description = "The Azure Subscription ID."
+    type        = string
+    sensitive   = true
+}
+variable "client_id" {
+    description = "Application ID for SP."
+    type        = string
+    sensitive   = true
+}
+variable "client_secret" {
+    description = "Client Secret for SP."
+    type        = string
+    sensitive   = true
+}
+variable "tenant_id" {
+    description = "Tenant ID."
+    type        = string
+    sensitive   = true
+}
+variable "admin_user_id" {
+  description = "ID of the admin user for the Databricks workspace"
+  type        = number
+  default     = 0 # Default can be overridden in tfvars or via command line
+}
