@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   component:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ${{ format('./main/{0}', inputs.component) }}
