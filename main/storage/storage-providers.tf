@@ -10,9 +10,9 @@ module "common" {
 
 # Configure the backend for Terraform state
 # The actual storage account, container, and key will be passed in from the deployment workflow
-terraform {
-  backend "azurerm" {}
-}
+# terraform {
+#   backend "azurerm" {}
+# }
 
 # Configure the Azure Resource Manager (azurerm) provider
 # - Disables automatic registration of resource providers for faster execution
@@ -49,6 +49,10 @@ provider "databricks" {
   alias      = "accounts"
   host       = "https://accounts.azuredatabricks.net"
   account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
 }
 
 # Configure the Databricks provider for **workspace-level** resources

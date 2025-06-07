@@ -3,8 +3,14 @@
 # - The 'source' attribute defines the official provider namespace on the Terraform Registry
 terraform {
   required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "4.21.1"
+    }
     databricks = {
-      source = "databricks/databricks" # Official Databricks provider from the Terraform Registry
+      source = "databricks/databricks"
+      version = "1.69.0"
+      configuration_aliases = [ databricks.accounts ]
     }
   }
 }

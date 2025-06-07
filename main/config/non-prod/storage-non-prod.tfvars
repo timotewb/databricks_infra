@@ -6,13 +6,11 @@
 
 # The Databricks account ID (used for account-level APIs like Unity Catalog)
 # - This ID is typically used with the `databricks.accounts` provider alias
-databricks_account_id = "e05790b3-4261-4044-8485-0ca3e84065c6"
 
 # The Azure Resource ID of the Databricks workspace
 # - Used for workspace-scoped resources (clusters, jobs, external locations, etc.)
 # - This is due to a limitation with the current Databricks Terraform provider / Databricks implementation
 # - It doens't matter which workspace this is, as long as the Azure OIDC can authenticate to it
-databricks_workspace_id = "/subscriptions/c4328310-9fdc-4b88-8c5d-7287350bba6f/resourceGroups/aue-rg-databricks-np01/providers/Microsoft.Databricks/workspaces/aue-rg-databricks-retail_ui-np01"
 
 # Map of Databricks Network Connectivity Connectors (NCCs)
 # - One entry per environment (e.g., nonprod)
@@ -54,7 +52,7 @@ storage_account = {
     hns_enabled      = true
     public_access    = false
     containers       = ["mdp-lakehouse"] # Container(s) to create in this account
-    allowed_ips      = ["103.7.96.10", "103.7.97.10"]
+    allowed_ips      = []
     tags = {
       Environment = "npe"
       CostCenter  = "TBD"
@@ -71,7 +69,7 @@ storage_account = {
     hns_enabled      = true
     public_access    = true
     containers       = ["mdp-lakehouse", "source", "integrated", "curated", "x-raw"]
-    allowed_ips      = ["103.7.96.10", "103.7.97.10"]
+    allowed_ips      = []
     tags = {
       Environment = "dev"
       CostCenter  = "TBD"
@@ -88,7 +86,7 @@ storage_account = {
     hns_enabled      = true
     public_access    = true
     containers       = ["mdp-lakehouse", "source", "integrated", "curated", "x-raw"]
-    allowed_ips      = ["103.7.96.10", "103.7.97.10"]
+    allowed_ips      = []
     tags = {
       Environment = "test"
       CostCenter  = "TBD"

@@ -19,10 +19,15 @@ After cloning this repository check the below dependencies then follow the steps
 - azure cli installed
 - shared resources resource group is created with a storage account and container available to write terraform state to.
 - service principal created with appropriate subscription permissions (Contributor, Role Based Access Control Administrator) and sared storage account permissions (Storage Blob Contributor)
+- a storage account with hierarchical namespace enabled exists and a has a container
+- metastore is created in databricks account console and is linked to the above storage account
+- a user created in your entra (or could be your own) who will be the administrator over the data platform
 
 ### Build infra
 
 >NOTE: the below steps assume you are building the non-prod environment using the network module.
+
+>NOTE: below are generic. See next section for module specific steps where different from generic steps.
 
 1. change directory into module you want to run e.g. from repo root 
 ```bash 
@@ -52,6 +57,7 @@ terraform {
   }
 }' >> backend.tf
 ```
+>NOTE: remember to rename the key for each module and each environment. e.g `non-prod-workspace.tfstate`
 3. use the azure cli to login
 ```bash 
 az login --service-principal --username <value> --password <value> --tenant <value>
@@ -69,4 +75,26 @@ terraform apply tf.plan
 ```
 ```bash 
 terraform destroy -var-file=<(cat .tfvars ../config/non-prod/network-non-prod.tfvars)
+```
+
+### Module Specific
+#### workspace
+```bash 
+echo '
+databricks_account_id   = ""
+subscription_id         = ""
+client_id               = ""
+client_secret           = ""
+tenant_id               = ""
+admin_user_id           =' >> .tfvars
+```
+#### storage
+```bash 
+echo '
+databricks_account_id   = ""
+subscription_id         = ""
+client_id               = ""
+client_secret           = ""
+tenant_id               = ""
+main/storage/.tfvars    = ""' >> .tfvars
 ```
