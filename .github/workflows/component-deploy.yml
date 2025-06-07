@@ -43,6 +43,10 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ vars.AZURE_CREDENTIALS }}    
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+            version: 0.13.4
 
       - name: Terraform Init
         run: |
