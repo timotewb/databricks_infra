@@ -22,7 +22,7 @@ provider "azurerm" {
   features {}
   resource_provider_registrations = "none"
   tenant_id                       = module.common.tenant_id
-  subscription_id                 = module.common.subscription_ids["Retail-Data-Services-01"]
+  subscription_id                 = module.common.subscription_ids["devops-as"]
   use_oidc                        = true
 }
 

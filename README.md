@@ -18,9 +18,10 @@ After cloning this repository check the below dependencies then follow the steps
 - terraform cli installed
 - azure cli installed
 - shared resources resource group is created with a storage account and container available to write terraform state to.
-- service principal created with appropriate subscription permissions (Contributor, Role Based Access Control Administrator) and sared storage account permissions (Storage Blob Contributor)
+- service principal created with appropriate subscription permissions (Contributor, Role Based Access Control Administrator) and shared storage account permissions (Storage Blob Contributor)
 - a storage account with hierarchical namespace enabled exists and a has a container
 - metastore is created in databricks account console and is linked to the above storage account
+- service principal has "CREATE EXTERNAL LOCATION" on metastore.
 - a user created in your entra (or could be your own) who will be the administrator over the data platform
 
 ### Build infra

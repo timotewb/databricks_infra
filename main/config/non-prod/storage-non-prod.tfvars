@@ -44,14 +44,14 @@ network_rg = "aue-rg-network-np01"
 
 storage_account = {
   "datalake" = {
-    name             = "auestormdpdatalakenp01" # ADLS account for the general data lake
+    name             = "auestormdpdatalakenptw33" # ADLS account for the general data lake
     rg_name          = "aue-rg-dataplatform-np01"
     kind             = "StorageV2"
     tier             = "Standard"
     replication_type = "GRS"
     hns_enabled      = true
     public_access    = false
-    containers       = ["mdp-lakehouse"] # Container(s) to create in this account
+    containers       = ["mdp-lakehouse", "data", "user"] # Container(s) to create in this account
     allowed_ips      = []
     tags = {
       Environment = "npe"
@@ -61,7 +61,7 @@ storage_account = {
   }
 
   "rdcd01" = {
-    name             = "auestorrdcd01" # ADLS account for Retail D01
+    name             = "auestorrdcdtw33" # ADLS account for Retail D01
     rg_name          = "aue-rg-dataplatform-d01"
     kind             = "StorageV2"
     tier             = "Standard"
@@ -78,7 +78,7 @@ storage_account = {
   }
 
   "rdct01" = {
-    name             = "auestorrdct01" # ADLS account for Retail T01
+    name             = "auestorrdcttw33" # ADLS account for Retail T01
     rg_name          = "aue-rg-dataplatform-t01"
     kind             = "StorageV2"
     tier             = "Standard"
@@ -155,3 +155,5 @@ data_factories = {
     rg_name = "CustomerTeam-Warehouse-Prod"
   }
 }
+
+environment = "non-prod" # Specifies the deployment environment for this configuration

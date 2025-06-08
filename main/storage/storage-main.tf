@@ -79,10 +79,10 @@ resource "azurerm_role_assignment" "storage_account_data_contributor" {
 # Resolve the object ID of each Entra ID group based on the display name.
 # The group name is provided via the `identity_name` attribute in storage_rbac.
 # This allows us to assign roles using the group's object ID.
-data "azuread_group" "group" {
-  for_each     = var.storage_rbac
-  display_name = each.value.identity_name
-}
+# data "azuread_group" "group" {
+#   for_each     = var.storage_rbac
+#   display_name = each.value.identity_name
+# }
 
 # Build a lookup map of storage accounts by their *actual* name
 # so we can reference them by name later (since the storage account
@@ -97,13 +97,13 @@ locals {
 # Assign the specified role (`rbac_role`) to the specified identity
 # (`identity_name`, resolved to an object ID) at the scope of the 
 # correct storage account.
-resource "azurerm_role_assignment" "assign_rbac" {
-  for_each = var.storage_rbac
+# resource "azurerm_role_assignment" "assign_rbac" {
+#   for_each = var.storage_rbac
 
-  scope                = local.storage_accounts_by_name[each.key].id
-  role_definition_name = each.value.rbac_role
-  principal_id         = data.azuread_group.group[each.key].object_id
-}
+#   scope                = local.storage_accounts_by_name[each.key].id
+#   role_definition_name = each.value.rbac_role
+#   principal_id         = data.azuread_group.group[each.key].object_id
+# }
 
 #----------------------------------------
 # STORAGE CONTAINERS
@@ -179,7 +179,7 @@ resource "databricks_grant" "storage_credential_grant" {
   provider           = databricks.workspace
   depends_on         = [databricks_storage_credential.external]
   storage_credential = databricks_storage_credential.external.name
-  principal          = module.common.github_app_id
+  principal          = module.common.timwbdbr_ar
   privileges         = ["CREATE_EXTERNAL_LOCATION"]
 }
 
@@ -216,12 +216,12 @@ resource "databricks_external_location" "external_locations" {
 # Reference to Data Factories
 #----------------------------------------
 
-data "azurerm_data_factory" "df" {
-  provider            = azurerm.Production
-  for_each            = var.data_factories
-  name                = each.value.name
-  resource_group_name = each.value.rg_name
-}
+# data "azurerm_data_factory" "df" {
+#   provider            = azurerm.Production
+#   for_each            = var.data_factories
+#   name                = each.value.name
+#   resource_group_name = each.value.rg_name
+# }
 
 #----------------------------------------
 # Development Storage Accounts: Filter
@@ -241,22 +241,22 @@ locals {
 # Development Role Assignments
 #----------------------------------------
 
-resource "azurerm_role_assignment" "dev_tags" {
-  for_each = {
-    for pair in setproduct(
-      values(data.azurerm_data_factory.df), # All imported Data Factories
-      values(local.dev_storage_accounts)    # All "dev" tagged storage accounts
-    ) :
-    "${pair[0].name}-${pair[1].name}" => {            # Unique key combining DF and SA name
-      principal_id = pair[0].identity[0].principal_id # Data Factory's managed identity
-      scope        = pair[1].id                       # Storage Account scope for role assignment
-    }
-  }
+# resource "azurerm_role_assignment" "dev_tags" {
+#   for_each = {
+#     for pair in setproduct(
+#       values(data.azurerm_data_factory.df), # All imported Data Factories
+#       values(local.dev_storage_accounts)    # All "dev" tagged storage accounts
+#     ) :
+#     "${pair[0].name}-${pair[1].name}" => {            # Unique key combining DF and SA name
+#       principal_id = pair[0].identity[0].principal_id # Data Factory's managed identity
+#       scope        = pair[1].id                       # Storage Account scope for role assignment
+#     }
+#   }
 
-  principal_id         = each.value.principal_id
-  role_definition_name = "Storage Blob Data Contributor"
-  scope                = each.value.scope
-}
+#   principal_id         = each.value.principal_id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   scope                = each.value.scope
+# }
 
 #----------------------------------------
 # Test Storage Accounts: Filter
@@ -276,22 +276,22 @@ locals {
 # Test Role Assignments
 #----------------------------------------
 
-resource "azurerm_role_assignment" "test_tags" {
-  for_each = {
-    for pair in setproduct(
-      values(data.azurerm_data_factory.df),
-      values(local.test_storage_accounts)
-    ) :
-    "${pair[0].name}-${pair[1].name}" => {
-      principal_id = pair[0].identity[0].principal_id
-      scope        = pair[1].id
-    }
-  }
+# resource "azurerm_role_assignment" "test_tags" {
+#   for_each = {
+#     for pair in setproduct(
+#       values(data.azurerm_data_factory.df),
+#       values(local.test_storage_accounts)
+#     ) :
+#     "${pair[0].name}-${pair[1].name}" => {
+#       principal_id = pair[0].identity[0].principal_id
+#       scope        = pair[1].id
+#     }
+#   }
 
-  principal_id         = each.value.principal_id
-  role_definition_name = "Storage Blob Data Contributor"
-  scope                = each.value.scope
-}
+#   principal_id         = each.value.principal_id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   scope                = each.value.scope
+# }
 
 #----------------------------------------
 # Production Storage Accounts: Filter
@@ -311,19 +311,19 @@ locals {
 # Production Role Assignments
 #----------------------------------------
 
-resource "azurerm_role_assignment" "prod_tags" {
-  for_each = {
-    for pair in setproduct(
-      values(data.azurerm_data_factory.df),
-      values(local.prod_storage_accounts)
-    ) :
-    "${pair[0].name}-${pair[1].name}" => {
-      principal_id = pair[0].identity[0].principal_id
-      scope        = pair[1].id
-    }
-  }
+# resource "azurerm_role_assignment" "prod_tags" {
+#   for_each = {
+#     for pair in setproduct(
+#       values(data.azurerm_data_factory.df),
+#       values(local.prod_storage_accounts)
+#     ) :
+#     "${pair[0].name}-${pair[1].name}" => {
+#       principal_id = pair[0].identity[0].principal_id
+#       scope        = pair[1].id
+#     }
+#   }
 
-  principal_id         = each.value.principal_id
-  role_definition_name = "Storage Blob Data Contributor"
-  scope                = each.value.scope
-}
+#   principal_id         = each.value.principal_id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   scope                = each.value.scope
+# }
