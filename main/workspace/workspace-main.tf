@@ -66,7 +66,7 @@ resource "null_resource" "workspace_propagation_delay" {
 # Grant ADMIN permission on each workspace to each admin group
 resource "databricks_mws_permission_assignment" "workspace_admin" {
   for_each   = azurerm_databricks_workspace.workspace
-  depends_on = [azurerm_databricks_workspace.workspace]
+  depends_on = [null_resource.workspace_propagation_delay]
   provider   = databricks.accounts
 
   workspace_id = each.value.workspace_id

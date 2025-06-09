@@ -4,6 +4,11 @@
 # General Environment Variables
 #----------------------------------------
 
+
+#----------------------------------------
+# General Environment Variables
+#----------------------------------------
+
 # Defines the deployment environment, such as "dev", "non-prod", or "prod".
 # This is typically passed via TF_VAR_environment to support environment-specific logic.
 variable "environment" {
@@ -20,19 +25,24 @@ variable "environment" {
 # - Each object includes full configuration details:
 #   - name: the storage account name
 variable "catalog" {
-  description = "Map of Catalogs to be created"
+  description = "Map of catalog configurations keyed by logical catalog identifiers."
   type = map(object({
-    name             = string
-    rg_name          = string
-    kind             = string
-    tier             = string
-    replication_type = string
-    hns_enabled      = bool
-    public_access    = bool
-    allowed_ips      = optional(list(string), [])
-    containers       = list(string)
-    tags             = map(string)
+    home_workspace = string
+    name            = string
+    comment         = string
+    storage_account = string
+    container_name  = string
+    sub_directory   = string
+    privileges      = map(string)
+    bindings        = map(object({
+      workspace_id = number
+      binding_type = string
+    }))
   }))
+}
+variable "catalog_grant_templates" {
+  description = "Map of grant template names to lists of privileges."
+  type = map(list(string))
 }
 
 variable "databricks_account_id" {
@@ -59,4 +69,13 @@ variable "tenant_id" {
     description = "Tenant ID."
     type        = string
     sensitive   = true
+}
+variable "workspace_url" {
+    description = "The URL of the Databricks workspace."
+    type        = string
+    sensitive   = true
+}
+variable "workspace_names" {
+  description = "Map of workspace names used to filter."
+  type = map(string)
 }

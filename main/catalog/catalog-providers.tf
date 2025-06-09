@@ -34,6 +34,43 @@ provider "databricks" {
   azure_client_secret = var.client_secret
   auth_type  = "azure-cli"
 }
+provider "databricks" {
+  alias = "workspace"
+  host = var.workspace_url
+  account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
+}
+provider "databricks" {
+  alias = "workspace_dev"
+  host = var.workspace_url
+  account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
+}
+provider "databricks" {
+  alias = "workspace_test"
+  host = var.workspace_url
+  account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
+}
+
+provider "databricks" {
+  alias = "workspace_ana"
+  host = var.workspace_url
+  account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
+}
 
 terraform {
   required_providers {

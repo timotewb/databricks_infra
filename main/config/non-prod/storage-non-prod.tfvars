@@ -93,6 +93,23 @@ storage_account = {
       Owner       = "TBD"
     }
   }
+
+  "rdca01" = {
+    name             = "auestorrdcatw33" # ADLS account for Retail T01
+    rg_name          = "aue-rg-dataplatform-a01"
+    kind             = "StorageV2"
+    tier             = "Standard"
+    replication_type = "GRS"
+    hns_enabled      = true
+    public_access    = true
+    containers       = ["mdp-lakehouse", "data", "user"]
+    allowed_ips      = []
+    tags = {
+      Environment = "test"
+      CostCenter  = "TBD"
+      Owner       = "TBD"
+    }
+  }
 }
 
 #----------------------------------------

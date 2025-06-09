@@ -1,4 +1,4 @@
-# Databricks Settings
+# Catalog Settings
 
 #----------------------------------------
 # DATABRICKS ACCOUNT & WORKSPACE SETTINGS
@@ -12,91 +12,235 @@
 # - This is due to a limitation with the current Databricks Terraform provider / Databricks implementation
 # - It doens't matter which workspace this is, as long as the Azure OIDC can authenticate to it
 
+# workspace names used to filter
+workspace_names = {
+  "dev" = "dev-retail-data-core"
+  "test" = "test-retail-data-core"
+  "prod" = "prod-retail-data-core"
+  "ana" = "ana-retail-data-core"
+}
+
+# map of grant templates keyed by names.
+catalog_grant_templates = {
+  "read" = ["USE_CATALOG", "USE_SCHEMA", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT"]
+  "write3" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH"]
+  "write2" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME"]
+  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE"]
+}
 # Map of catalog configuration keyed by logical catalog identifiers.
 # Each entry defines properties for a catalog.
 catalog = {
-
-  # Dev source_raw catalog for Retail Data Core platform
-  "dev_source_raw_retail" = {
-    name                  = "dev_source_raw_retail"
-    workspace             = ["dev-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcd01"
+#----------------------------------------------------------------------------------------
+# analyst catalogs
+#----------------------------------------------------------------------------------------
+# data
+  "ana_data_retail" = {
+    home_workspace = "ana-retail-data-core"
+    name                  = "ana_data_retail" # Name of the catalog in ui
+    comment = "This catalog is used to store permanenet business and project data, managed through Terraform."
+    storage_account  = "auestorrdcatw33"
+    container_name = "data"
+    sub_directory = "data"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write3"
+    }
+    bindings = {
+      "ana-retail-data-core": {
+        workspace_id: 1697628615520647,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
-
-  "test_source_raw_retail" = {
-    name                  = "test_source_raw_retail"
-    workspace             = ["test-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdct01"
+# user
+  "ana_user_retail" = {
+    home_workspace = "ana-retail-data-core"
+    name                  = "ana_user_retail" # Name of the catalog in ui
+    comment = "This catalog is used as a user sandbox for storing data, managed through Terraform."
+    storage_account  = "auestorrdcatw33"
+    container_name = "user"
+    sub_directory = "user"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write3"
+    }
+    bindings = {
+      "ana-retail-data-core": {
+        workspace_id: 1697628615520647,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
-
-  # dev source catalog for Retail Data Core platform
+#----------------------------------------------------------------------------------------
+# dev catalogs
+#----------------------------------------------------------------------------------------
+# x_raw
+  "dev_x_raw_retail" = {
+    home_workspace = "dev-retail-data-core"
+    name                  = "dev_x_raw_retail" # Name of the catalog in ui
+    comment = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcdtw33"
+    container_name = "x-raw"
+    sub_directory = "x-raw"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write3"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
+  }
+# source
   "dev_source_retail" = {
-    name                  = "dev_source_retail"
-    workspace             = ["dev-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcd01"
+    home_workspace = "dev-retail-data-core"
+    name                  = "dev_source_retail" # Name of the catalog in ui
+    comment = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcdtw33"
+    container_name = "source"
+    sub_directory = "source"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write2"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
-
-  "test_source_retail" = {
-    name                  = "test_source_retail"
-    workspace             = ["test-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdct01"
-  }
-
-  # dev integrated catalog for Retail Data Core platform
+# integrated
   "dev_integrated_retail" = {
-    name                  = "dev_integrated_retail"
-    workspace             = ["dev-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcd01"
+    home_workspace = "dev-retail-data-core"
+    name                  = "dev_integrated_retail" # Name of the catalog in ui
+    comment = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcdtw33"
+    container_name = "integrated"
+    sub_directory = "integrated"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write2"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
-
-  "test_integrated_retail" = {
-    name                  = "test_integrated_retail"
-    workspace             = ["test-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdct01"
-  }
-
-  # dev curated catalog for Retail Data Core platform
+# curated  
   "dev_curated_retail" = {
-    name                  = "dev_curated_retail"
-    workspace             = ["dev-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcd01"
+    home_workspace = "dev-retail-data-core"
+    name                  = "dev_curated_retail" # Name of the catalog in ui
+    comment = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcdtw33"
+    container_name = "curated"
+    sub_directory = "curated"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "write1"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
 
-  "test_curated_retail" = {
-    name                  = "test_curated_retail"
-    workspace             = ["test-retail-data-core"]
-    privileges            = {
-                                "RDS-Admin" = ["ALL_PRIVILEGES"]
-                            }
-    comment               = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdct01"
+#----------------------------------------------------------------------------------------
+# test catalogs
+#----------------------------------------------------------------------------------------
+# x_raw
+  "test_x_raw_retail" = {
+    home_workspace = "test-retail-data-core"
+    name                  = "test_x_raw_retail" # Name of the catalog in ui
+    comment = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcttw33"
+    container_name = "x-raw"
+    sub_directory = "x-raw"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "read"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_ONLY"
+      }
+      "test-retail-data-core": {
+        workspace_id: 301826705083788,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
   }
+# source
+  "test_source_retail" = {
+    home_workspace = "test-retail-data-core"
+    name                  = "test_source_retail" # Name of the catalog in ui
+    comment = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcdtw33"
+    container_name = "source"
+    sub_directory = "source"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "read"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_ONLY"
+      }
+      "test-retail-data-core": {
+        workspace_id: 301826705083788,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
+  }
+# integrated
+  "test_integrated_retail" = {
+    home_workspace = "test-retail-data-core"
+    name                  = "test_integrated_retail" # Name of the catalog in ui
+    comment = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcttw33"
+    container_name = "integrated"
+    sub_directory = "integrated"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "read"
+    }
+    bindings = {
+      "dev-retail-data-core": {
+        workspace_id: 2147433627612946,
+        binding_type: "BINDING_TYPE_READ_ONLY"
+      }
+      "test-retail-data-core": {
+        workspace_id: 301826705083788,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
+  }
+# curated
+  "test_curated_retail" = {
+    home_workspace = "test-retail-data-core"
+    name                  = "test_curated_retail" # Name of the catalog in ui
+    comment = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
+    storage_account  = "auestorrdcttw33"
+    container_name = "curated"
+    sub_directory = "curated"
+    privileges = {
+      "admin@timotewblive.onmicrosoft.com" = "read"
+      "data.engineer@timotewblive.onmicrosoft.com" = "read"
+    }
+    bindings = {
+      "test-retail-data-core": {
+        workspace_id: 301826705083788,
+        binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+    }
+  }
+
 }

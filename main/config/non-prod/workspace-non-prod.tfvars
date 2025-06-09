@@ -45,6 +45,17 @@ workspaces = {
     sku           = "premium"
     admin_group   = "RDS-Admin"
   }
+
+  # Analyst workspace for Retail Data Core platform
+  "ana-retail-data-core" = {
+    name          = "ana-retail-data-core"
+    rg_name       = "aue-rg-databricks-a01"
+    managed_rg    = "aue-rg-databricks-retail-data-core-a01"
+    public_access = false
+    encryption    = true
+    sku           = "premium"
+    admin_group   = "RDS-Admin"
+  }
 }
 
 
