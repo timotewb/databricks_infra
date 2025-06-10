@@ -23,4 +23,14 @@ workspaces = {
     sku           = "premium"                                # Specifies the pricing tier
     admin_group   = "Azure_MDP_ Databricks_Admins"           # Specifies Admin Group for the workspace
   }
+
+  "prod-retail-analyst" = {
+    name          = "prod-retail-analyst"                  # Workspace name
+    rg_name       = "aue-rg-databricks-p01"                  # Resource group where the workspace will be created
+    managed_rg    = "aue-rg-databricks-retail-analyst-p01" # Managed resource group used internally by Databricks
+    public_access = false                                    # Disables public network access to the workspace
+    encryption    = true                                     # Enables CMK encryption for workspace data
+    sku           = "premium"                                # Specifies the pricing tier
+    admin_group   = "Azure_MDP_ Databricks_Admins"           # Specifies Admin Group for the workspace
+  }
 }

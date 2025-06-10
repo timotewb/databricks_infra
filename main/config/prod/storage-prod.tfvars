@@ -6,11 +6,10 @@
 
 # The Databricks account ID (used for account-level APIs like Unity Catalog)
 # - This ID is typically used with the `databricks.accounts` provider alias
-databricks_account_id = "c8eaeaff-82c9-439d-ab7e-5cb3e83082c6"
+
 
 # The Azure Resource ID of the Databricks workspace
 # - Used for workspace-scoped resources (clusters, jobs, external locations, etc.)
-databricks_workspace_id = "/subscriptions/c4328310-9fdc-4b88-8c5d-7287350bba6f/resourceGroups/aue-rg-databricks-np01/providers/Microsoft.Databricks/workspaces/aue-rg-databricks-retail_ui-np01"
 
 # Map of Databricks Network Connectivity Connectors (NCCs)
 # - One entry per environment (e.g., nonprod)
@@ -44,7 +43,7 @@ network_rg = "aue-rg-network-p01"
 
 storage_account = {
   "rdcp01" = {
-    name             = "auestorrdcp01" # ADLS account for Retail P01
+    name             = "auestorrdcptw33" # ADLS account for Retail P01
     rg_name          = "aue-rg-dataplatform-p01"
     kind             = "StorageV2"
     tier             = "Standard"
@@ -52,9 +51,25 @@ storage_account = {
     hns_enabled      = true
     public_access    = true
     containers       = ["mdp-lakehouse", "source", "integrated", "curated", "x-raw"] # Container(s) to create in this account
-    allowed_ips      = ["103.7.96.10", "103.7.97.10"]
+    allowed_ips      = []
     tags = {
       Environment = "prod"
+      CostCenter  = "TBD"
+      Owner       = "TBD"
+    }
+  }
+  "rdca01" = {
+    name             = "auestorrdcatw33" # ADLS account for Retail P01
+    rg_name          = "aue-rg-dataplatform-a01"
+    kind             = "StorageV2"
+    tier             = "Standard"
+    replication_type = "GRS"
+    hns_enabled      = true
+    public_access    = true
+    containers       = ["mdp-lakehouse", "source", "integrated", "curated", "x-raw"] # Container(s) to create in this account
+    allowed_ips      = []
+    tags = {
+      Environment = "analyst"
       CostCenter  = "TBD"
       Owner       = "TBD"
     }

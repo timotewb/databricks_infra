@@ -70,7 +70,17 @@ variable "tenant_id" {
     type        = string
     sensitive   = true
 }
-variable "workspace_url" {
+variable "workspace_url_dev" {
+    description = "The URL of the Databricks workspace."
+    type        = string
+    sensitive   = true
+}
+variable "workspace_url_test" {
+    description = "The URL of the Databricks workspace."
+    type        = string
+    sensitive   = true
+}
+variable "workspace_url_ana" {
     description = "The URL of the Databricks workspace."
     type        = string
     sensitive   = true
