@@ -92,26 +92,26 @@ variable "databricks_workspace_id" {
 # - The Entra ID group name (`identity_name`)
 # - The desired role to assign (`rbac_role`)
 
-variable "storage_rbac" {
-  description = "Mapping of storage accounts to identity and RBAC role"
-  type = map(object({
-    identity_name = string
-    rbac_role     = string
-  }))
-}
+# variable "storage_rbac" {
+#   description = "Mapping of storage accounts to identity and RBAC role"
+#   type = map(object({
+#     identity_name = string
+#     rbac_role     = string
+#   }))
+# }
 
 
 #----------------------------------------
 # Datafactory Variables
 #----------------------------------------
 
-variable "data_factories" {
-  description = "Map of Data Factory Resources that will be granted access to the Databricks storage accounts"
-  type = map(object({
-    name    = string
-    rg_name = string
-  }))
-}
+# variable "data_factories" {
+#   description = "Map of Data Factory Resources that will be granted access to the Databricks storage accounts"
+#   type = map(object({
+#     name    = string
+#     rg_name = string
+#   }))
+# }
 
 variable "subscription_id" {
     description = "The Azure Subscription ID."

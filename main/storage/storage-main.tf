@@ -10,9 +10,11 @@
 # Create one or more resource groups for the storage accounts
 # - Uses a for_each to allow dynamic creation based on input variable map
 resource "azurerm_resource_group" "storage_rg" {
-  for_each = var.storage_account
-  name     = each.value.rg_name
-  location = module.common.location["primary"]
+  for_each = toset(distinct([
+    for ws in var.storage_account : ws.rg_name
+  ]))  
+  name     = each.value
+  location = module.common.location["primary"] # Typically resolved to a region like "australiaeast"
   tags     = module.common.tags
 }
 

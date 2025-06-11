@@ -10,7 +10,7 @@ locals {
           catalog_key    = catalog_key
           binding_key    = binding_key
           catalog_name   = catalog.name
-          workspace_id   = binding.workspace_id
+          workspace_id   = module.common.workspace_ids[binding.workspace_code]
           binding_type    = binding.binding_type
           home_workspace  = catalog.home_workspace
           name           = catalog.name
@@ -39,7 +39,6 @@ locals {
           comment        = catalog.comment
           container_name = catalog.container_name
           storage_account = catalog.storage_account
-          sub_directory  = catalog.sub_directory
           home_workspace = catalog.home_workspace
           privileges     = catalog.privileges
     }
@@ -49,7 +48,6 @@ locals {
       comment       = pair.comment
       container_name = pair.container_name
       storage_account = pair.storage_account
-      sub_directory = pair.sub_directory
       home_workspace = pair.home_workspace
       privileges    = {
         for privilege_key, privilege_value in pair.privileges : privilege_key => privilege_value

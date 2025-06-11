@@ -36,7 +36,7 @@ provider "databricks" {
 }
 provider "databricks" {
   alias = "workspace_dev"
-  host = var.workspace_url_dev
+  host = module.common.workspace_urls["dev"]
   account_id = var.databricks_account_id
   azure_tenant_id     = var.tenant_id
   azure_client_id     = var.client_id
@@ -45,7 +45,7 @@ provider "databricks" {
 }
 provider "databricks" {
   alias = "workspace_test"
-  host = var.workspace_url_test
+  host = module.common.workspace_urls["test"]
   account_id = var.databricks_account_id
   azure_tenant_id     = var.tenant_id
   azure_client_id     = var.client_id
@@ -54,7 +54,7 @@ provider "databricks" {
 }
 provider "databricks" {
   alias = "workspace_prod"
-  host = var.workspace_url_prod
+  host = module.common.workspace_urls["prod"]
   account_id = var.databricks_account_id
   azure_tenant_id     = var.tenant_id
   azure_client_id     = var.client_id
@@ -64,7 +64,7 @@ provider "databricks" {
 
 provider "databricks" {
   alias = "workspace_ana"
-  host = var.workspace_url_ana
+  host = module.common.workspace_urls["ana"]
   account_id = var.databricks_account_id
   azure_tenant_id     = var.tenant_id
   azure_client_id     = var.client_id

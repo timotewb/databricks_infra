@@ -34,3 +34,11 @@ output "catalog_grant_templates" {
 output "workspace_names" {
   value = var.workspace_names
 }
+
+output "workspace_ids" {
+  value = var.workspace_ids
+}
+
+output "workspace_urls" {
+  value = var.workspace_urls
+}

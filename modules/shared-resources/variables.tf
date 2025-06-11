@@ -84,3 +84,25 @@ variable "workspace_names" {
     "ana"  = "prod-retail-analyst"
   }
 }
+
+variable "workspace_ids" {
+  description = "Map of workspace ids keyed by environment"
+  type        = map(number)
+  default = {
+    "dev"  = 3314672737661664
+    "test" = 1952610885136542
+    "prod" = 3939779496654265
+    "ana"  = 3754814852473328
+  }
+}
+
+variable "workspace_urls" {
+  description = "Map of workspace urls keyed by environment"
+  type        = map(string)
+  default = {
+    "dev"  = "https://adb-3314672737661664.4.azuredatabricks.net"
+    "test" = "https://adb-1952610885136542.2.azuredatabricks.net"
+    "prod" = "https://adb-3939779496654265.5.azuredatabricks.net"
+    "ana"  = "https://adb-3754814852473328.8.azuredatabricks.net"
+  }
+}

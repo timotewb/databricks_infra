@@ -32,7 +32,7 @@ catalog = {
     }
     bindings = {
       "prod-retail-analyst": {
-        workspace_id: 2576627461530391,
+        workspace_code: "ana",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
@@ -51,7 +51,7 @@ catalog = {
     }
     bindings = {
       "prod-retail-analyst": {
-        workspace_id: 2576627461530391,
+        workspace_code: "ana",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
@@ -73,7 +73,7 @@ catalog = {
     }
     bindings = {
       "prod-retail-data-core": {
-        workspace_id: 455787457764141,
+        workspace_code: "prod",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
@@ -92,7 +92,7 @@ catalog = {
     }
     bindings = {
       "prod-retail-data-core": {
-        workspace_id: 455787457764141,
+        workspace_code: "prod",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
@@ -111,11 +111,11 @@ catalog = {
     }
     bindings = {
       "prod-retail-data-core": {
-        workspace_id: 455787457764141,
+        workspace_code: "prod",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
       "prod-retail-analyst": {
-        workspace_id: 2576627461530391,
+        workspace_code: "ana",
         binding_type: "BINDING_TYPE_READ_ONLY"
       }
     }
@@ -134,11 +134,11 @@ catalog = {
     }
     bindings = {
       "prod-retail-data-core": {
-        workspace_id: 455787457764141,
+        workspace_code: "prod",
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
       "prod-retail-analyst": {
-        workspace_id: 2576627461530391,
+        workspace_code: "ana",
         binding_type: "BINDING_TYPE_READ_ONLY"
       }
     }

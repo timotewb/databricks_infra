@@ -32,7 +32,7 @@ resource "azurerm_databricks_workspace" "workspace" {
   name                              = each.value.name
   resource_group_name               = each.value.rg_name
   location                          = module.common.location["primary"]
-  sku                               = each.value.sku # e.g., "premium"
+  sku                               = each.value.sku
   managed_resource_group_name       = each.value.managed_rg
   infrastructure_encryption_enabled = each.value.encryption
 }
@@ -48,7 +48,7 @@ resource "databricks_metastore_assignment" "metastore" {
   depends_on   = [azurerm_databricks_workspace.workspace]
   for_each     = var.workspaces
   workspace_id = azurerm_databricks_workspace.workspace[each.key].workspace_id
-  metastore_id = module.common.metastore_id # Supplied by shared module (e.g., a central metastore)
+  metastore_id = module.common.metastore_id
 }
 
 # Fetch each SCIM-synced admin group once at the account level

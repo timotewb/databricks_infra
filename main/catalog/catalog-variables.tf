@@ -34,7 +34,7 @@ variable "catalog" {
     container_name  = string
     privileges      = map(string)
     bindings        = map(object({
-      workspace_id = number
+      workspace_code = string
       binding_type = string
     }))
   }))
