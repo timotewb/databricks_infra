@@ -26,3 +26,11 @@ output "metastore_id" {
 output "tag_env_aliases" {
   value = var.tag_env_aliases
 }
+
+output "catalog_grant_templates" {
+  value = var.catalog_grant_templates
+}
+
+output "workspace_names" {
+  value = var.workspace_names
+}

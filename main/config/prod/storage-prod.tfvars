@@ -59,14 +59,14 @@ storage_account = {
     }
   }
   "rdca01" = {
-    name             = "auestorrdcatw33" # ADLS account for Retail P01
-    rg_name          = "aue-rg-dataplatform-a01"
+    name             = "auestorrdcpatw33" # ADLS account for Retail P01
+    rg_name          = "aue-rg-dataplatform-p01"
     kind             = "StorageV2"
     tier             = "Standard"
     replication_type = "GRS"
     hns_enabled      = true
     public_access    = true
-    containers       = ["mdp-lakehouse", "source", "integrated", "curated", "x-raw"] # Container(s) to create in this account
+    containers       = ["mdp-lakehouse", "data", "user"] # Container(s) to create in this account
     allowed_ips      = []
     tags = {
       Environment = "analyst"
@@ -102,3 +102,5 @@ data_factories = {
     rg_name = "CustomerTeam-Warehouse-prod"
   }
 }
+
+environment = "prod" # Specifies the deployment environment for this configuration

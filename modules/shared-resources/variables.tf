@@ -63,3 +63,24 @@ variable "metastore_id" {
   type        = string
   default     = "6d7f2b45-dc09-4790-a3c4-f3bc088d7cee"
 }
+
+variable "catalog_grant_templates"{
+  type = map(list(string))
+  description = "Map of grant templates keyed by names. Each template defines a set of privileges for Unity Catalog."
+  default = {
+  "read" = ["USE_CATALOG", "USE_SCHEMA", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT"]
+  "write3" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH"]
+  "write2" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME"]
+  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE"]
+  }
+}
+variable "workspace_names" {
+  description = "Map of workspace names keyed by environment"
+  type        = map(string)
+  default = {
+    "dev"  = "dev-retail-data-core"
+    "test" = "test-retail-data-core"
+    "prod" = "prod-retail-data-core"
+    "ana"  = "prod-retail-analyst"
+  }
+}

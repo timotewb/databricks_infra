@@ -12,21 +12,6 @@
 # - This is due to a limitation with the current Databricks Terraform provider / Databricks implementation
 # - It doens't matter which workspace this is, as long as the Azure OIDC can authenticate to it
 
-# workspace names used to filter
-workspace_names = {
-  "dev" = "dev-retail-data-core"
-  "test" = "test-retail-data-core"
-  "prod" = "prod-retail-data-core"
-  "ana" = "ana-retail-data-core"
-}
-
-# map of grant templates keyed by names.
-catalog_grant_templates = {
-  "read" = ["USE_CATALOG", "USE_SCHEMA", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT"]
-  "write3" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH"]
-  "write2" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME"]
-  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE"]
-}
 # Map of catalog configuration keyed by logical catalog identifiers.
 # Each entry defines properties for a catalog.
 catalog = {
@@ -38,7 +23,7 @@ catalog = {
     home_workspace = "prod-retail-analyst"
     name                  = "ana_data_retail" # Name of the catalog in ui
     comment = "This catalog is used to store permanenet business and project data, managed through Terraform."
-    storage_account  = "auestorrdcatw33"
+    storage_account  = "auestorrdcpatw33"
     container_name = "data"
     sub_directory = "data"
     privileges = {
@@ -47,7 +32,7 @@ catalog = {
     }
     bindings = {
       "prod-retail-analyst": {
-        workspace_id: 1697628615520647,
+        workspace_id: 2576627461530391,
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
@@ -57,7 +42,7 @@ catalog = {
     home_workspace = "prod-retail-analyst"
     name                  = "ana_user_retail" # Name of the catalog in ui
     comment = "This catalog is used as a user sandbox for storing data, managed through Terraform."
-    storage_account  = "auestorrdcatw33"
+    storage_account  = "auestorrdcpatw33"
     container_name = "user"
     sub_directory = "user"
     privileges = {
@@ -66,20 +51,20 @@ catalog = {
     }
     bindings = {
       "prod-retail-analyst": {
-        workspace_id: 1697628615520647,
+        workspace_id: 2576627461530391,
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
   }
 #----------------------------------------------------------------------------------------
-# dev catalogs
+# prod catalogs
 #----------------------------------------------------------------------------------------
 # x_raw
-  "dev_x_raw_retail" = {
-    home_workspace = "dev-retail-data-core"
-    name                  = "dev_x_raw_retail" # Name of the catalog in ui
+  "prod_x_raw_retail" = {
+    home_workspace = "prod-retail-data-core"
+    name                  = "prod_x_raw_retail" # Name of the catalog in ui
     comment = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcdtw33"
+    storage_account  = "auestorrdcptw33"
     container_name = "x-raw"
     sub_directory = "x-raw"
     privileges = {
@@ -87,18 +72,18 @@ catalog = {
       "data.engineer@timotewblive.onmicrosoft.com" = "write3"
     }
     bindings = {
-      "dev-retail-data-core": {
-        workspace_id: 2147433627612946,
+      "prod-retail-data-core": {
+        workspace_id: 455787457764141,
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
   }
 # source
-  "dev_source_retail" = {
-    home_workspace = "dev-retail-data-core"
-    name                  = "dev_source_retail" # Name of the catalog in ui
+  "prod_source_retail" = {
+    home_workspace = "prod-retail-data-core"
+    name                  = "prod_source_retail" # Name of the catalog in ui
     comment = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcdtw33"
+    storage_account  = "auestorrdcptw33"
     container_name = "source"
     sub_directory = "source"
     privileges = {
@@ -106,18 +91,18 @@ catalog = {
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
     }
     bindings = {
-      "dev-retail-data-core": {
-        workspace_id: 2147433627612946,
+      "prod-retail-data-core": {
+        workspace_id: 455787457764141,
         binding_type: "BINDING_TYPE_READ_WRITE"
       }
     }
   }
 # integrated
-  "dev_integrated_retail" = {
-    home_workspace = "dev-retail-data-core"
-    name                  = "dev_integrated_retail" # Name of the catalog in ui
+  "prod_integrated_retail" = {
+    home_workspace = "prod-retail-data-core"
+    name                  = "prod_integrated_retail" # Name of the catalog in ui
     comment = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcdtw33"
+    storage_account  = "auestorrdcptw33"
     container_name = "integrated"
     sub_directory = "integrated"
     privileges = {
@@ -125,18 +110,22 @@ catalog = {
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
     }
     bindings = {
-      "dev-retail-data-core": {
-        workspace_id: 2147433627612946,
+      "prod-retail-data-core": {
+        workspace_id: 455787457764141,
         binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+      "prod-retail-analyst": {
+        workspace_id: 2576627461530391,
+        binding_type: "BINDING_TYPE_READ_ONLY"
       }
     }
   }
 # curated  
-  "dev_curated_retail" = {
-    home_workspace = "dev-retail-data-core"
-    name                  = "dev_curated_retail" # Name of the catalog in ui
+  "prod_curated_retail" = {
+    home_workspace = "prod-retail-data-core"
+    name                  = "prod_curated_retail" # Name of the catalog in ui
     comment = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
-    storage_account  = "auestorrdcdtw33"
+    storage_account  = "auestorrdcptw33"
     container_name = "curated"
     sub_directory = "curated"
     privileges = {
@@ -144,9 +133,13 @@ catalog = {
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
     }
     bindings = {
-      "dev-retail-data-core": {
-        workspace_id: 2147433627612946,
+      "prod-retail-data-core": {
+        workspace_id: 455787457764141,
         binding_type: "BINDING_TYPE_READ_WRITE"
+      }
+      "prod-retail-analyst": {
+        workspace_id: 2576627461530391,
+        binding_type: "BINDING_TYPE_READ_ONLY"
       }
     }
   }

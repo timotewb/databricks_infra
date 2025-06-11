@@ -13,20 +13,10 @@
 # - It doens't matter which workspace this is, as long as the Azure OIDC can authenticate to it
 
 # workspace names used to filter
-workspace_names = {
-  "dev" = "dev-retail-data-core"
-  "test" = "test-retail-data-core"
-  "prod" = "prod-retail-data-core"
-  "ana" = "ana-retail-data-core"
-}
+
 
 # map of grant templates keyed by names.
-catalog_grant_templates = {
-  "read" = ["USE_CATALOG", "USE_SCHEMA", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT"]
-  "write3" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH"]
-  "write2" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME"]
-  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE"]
-}
+
 # Map of catalog configuration keyed by logical catalog identifiers.
 # Each entry defines properties for a catalog.
 catalog = {
@@ -40,7 +30,6 @@ catalog = {
     comment = "This catalog is used to store permanenet business and project data, managed through Terraform."
     storage_account  = "auestorrdcatw33"
     container_name = "data"
-    sub_directory = "data"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write3"
@@ -59,7 +48,6 @@ catalog = {
     comment = "This catalog is used as a user sandbox for storing data, managed through Terraform."
     storage_account  = "auestorrdcatw33"
     container_name = "user"
-    sub_directory = "user"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write3"
@@ -81,7 +69,6 @@ catalog = {
     comment = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcdtw33"
     container_name = "x-raw"
-    sub_directory = "x-raw"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write3"
@@ -100,7 +87,6 @@ catalog = {
     comment = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcdtw33"
     container_name = "source"
-    sub_directory = "source"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
@@ -119,7 +105,6 @@ catalog = {
     comment = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcdtw33"
     container_name = "integrated"
-    sub_directory = "integrated"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
@@ -138,7 +123,6 @@ catalog = {
     comment = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcdtw33"
     container_name = "curated"
-    sub_directory = "curated"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "write2"
@@ -161,7 +145,6 @@ catalog = {
     comment = "This is the source raw catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcttw33"
     container_name = "x-raw"
-    sub_directory = "x-raw"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "read"
@@ -184,7 +167,6 @@ catalog = {
     comment = "This is the source catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcdtw33"
     container_name = "source"
-    sub_directory = "source"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "read"
@@ -207,7 +189,6 @@ catalog = {
     comment = "This is the integrated catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcttw33"
     container_name = "integrated"
-    sub_directory = "integrated"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "read"
@@ -230,7 +211,6 @@ catalog = {
     comment = "This is the curated catalog for the Retail Data Core platform, managed through Terraform."
     storage_account  = "auestorrdcttw33"
     container_name = "curated"
-    sub_directory = "curated"
     privileges = {
       "admin@timotewblive.onmicrosoft.com" = "read"
       "data.engineer@timotewblive.onmicrosoft.com" = "read"

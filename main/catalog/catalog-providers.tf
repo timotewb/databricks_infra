@@ -52,6 +52,15 @@ provider "databricks" {
   azure_client_secret = var.client_secret
   auth_type  = "azure-cli"
 }
+provider "databricks" {
+  alias = "workspace_prod"
+  host = var.workspace_url_prod
+  account_id = var.databricks_account_id
+  azure_tenant_id     = var.tenant_id
+  azure_client_id     = var.client_id
+  azure_client_secret = var.client_secret
+  auth_type  = "azure-cli"
+}
 
 provider "databricks" {
   alias = "workspace_ana"

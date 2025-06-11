@@ -25,3 +25,4 @@ ehthumbs.db
 .tfvars
 backend.tf
 tf.plan
+.terraform.lock.hcl

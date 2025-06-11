@@ -11,11 +11,14 @@
 # Creates one resource group per workspace using the values provided in var.workspaces.
 # This allows isolated resource management per workspace.
 resource "azurerm_resource_group" "databricks_rg" {
-  for_each = var.workspaces
-  name     = each.value.rg_name
+  for_each = toset(distinct([
+    for ws in var.workspaces : ws.rg_name
+  ]))  
+  name     = each.value
   location = module.common.location["primary"] # Typically resolved to a region like "australiaeast"
   tags     = module.common.tags
 }
+
 
 #----------------------------------------
 # Databricks Workspace(s)
