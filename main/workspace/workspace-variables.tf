@@ -52,11 +52,9 @@ variable "workspaces" {
     encryption    = bool
     managed_rg    = string
     sku           = string
-    admin_group   = string 
+    permissions   = map(string) 
   }))
 }
-
-
 variable "subscription_id" {
     description = "The Azure Subscription ID."
     type        = string

@@ -9,7 +9,10 @@ workspaces = {
     public_access = false
     encryption    = true
     sku           = "premium"
-    admin_group   = "RDS-Admin"
+    permissions = {
+      "TWB-Admin" = "ADMIN"
+      "TWB-Data-Engineer" = "USER"
+    }
   }
   "test-retail-data-core" = {
     name          = "test-retail-data-core"
@@ -18,6 +21,9 @@ workspaces = {
     public_access = false
     encryption    = true
     sku           = "premium"
-    admin_group   = "RDS-Admin"
+    permissions = {
+      "TWB-Admin" = "ADMIN"
+      "TWB-Data-Engineer" = "USER"
+    }
   }
 }

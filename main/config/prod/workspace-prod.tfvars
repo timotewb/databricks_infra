@@ -21,7 +21,10 @@ workspaces = {
     public_access = false                                    # Disables public network access to the workspace
     encryption    = true                                     # Enables CMK encryption for workspace data
     sku           = "premium"                                # Specifies the pricing tier
-    admin_group   = "Azure_MDP_ Databricks_Admins"           # Specifies Admin Group for the workspace
+    permissions = {
+      "admin@timotewblive.onmicrosoft.com" = "ADMIN"
+      "data.engineer@timotewblive.onmicrosoft.com" = "USER"
+    }
   }
 
   "prod-retail-analyst" = {
@@ -31,6 +34,9 @@ workspaces = {
     public_access = false                                    # Disables public network access to the workspace
     encryption    = true                                     # Enables CMK encryption for workspace data
     sku           = "premium"                                # Specifies the pricing tier
-    admin_group   = "Azure_MDP_ Databricks_Admins"           # Specifies Admin Group for the workspace
+    permissions = {
+      "admin@timotewblive.onmicrosoft.com" = "ADMIN"
+      "data.engineer@timotewblive.onmicrosoft.com" = "USER"
+    }
   }
 }

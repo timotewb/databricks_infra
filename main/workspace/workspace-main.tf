@@ -52,11 +52,11 @@ resource "databricks_metastore_assignment" "metastore" {
 }
 
 # Fetch each SCIM-synced admin group once at the account level
-# data "databricks_group" "admin_groups" {
-#   for_each     = var.workspaces
-#   provider     = databricks.accounts
-#   display_name = each.value.admin_group
-# }
+data "databricks_group" "groups" {
+  for_each     = local.workspace_permissions 
+  provider     = databricks.accounts
+  display_name = each.value.group_name
+}
 
 # Optional Delay to Allow Propagation to MWS APIs
 resource "null_resource" "workspace_propagation_delay" {
@@ -65,17 +65,19 @@ resource "null_resource" "workspace_propagation_delay" {
     command = "sleep 30"
   }
 }
-
+# TODO: change the below code to loop over the permissions
 # Grant ADMIN permission on each workspace to each admin group
 resource "databricks_mws_permission_assignment" "workspace_admin" {
-  for_each   = azurerm_databricks_workspace.workspace
+  for_each   = local.workspace_permissions 
   depends_on = [null_resource.workspace_propagation_delay]
   provider   = databricks.accounts
 
-  workspace_id = each.value.workspace_id
-  principal_id = var.admin_user_id
-  permissions  = ["ADMIN"]
+  workspace_id = azurerm_databricks_workspace.workspace[each.key].workspace_id
+  principal_id = data.databricks_group.groups[each.key]
+  permissions  = [each.value.permission]
 }
+
+
 
 #----------------------------------------
 # Network Connectivity Configuration (NCC)
