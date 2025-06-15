@@ -12,12 +12,8 @@ locals {
     ]) :
     pair.key => {
       group_name = pair.group_name
-      permission = pair.access
+      permission = pair.permission
       ws_key     = pair.ws_key
     }
   }
-}
-
-output "workspace_access" {
-    value = local.workspace_permissions
 }
