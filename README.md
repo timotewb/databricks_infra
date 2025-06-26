@@ -7,7 +7,7 @@ The seperate code bases do have dependencies on each other when building the inf
 
 ```mermaid
 graph LR
-A(network) --> B(workspace) --> C(storage) --> D(rbac)
+A(network) --> B(workspace) --> C(storage) --> D(rbac) --> E(catalog)
 ```
 
 
