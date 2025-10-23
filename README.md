@@ -87,7 +87,7 @@ subscription_id         = ""
 client_id               = ""
 client_secret           = ""
 tenant_id               = ""
-admin_user_id           =' >> .tfvars
+' >> .tfvars
 ```
 #### storage
 ```bash 
@@ -97,5 +97,7 @@ subscription_id         = ""
 client_id               = ""
 client_secret           = ""
 tenant_id               = ""
-main/storage/.tfvars    = ""' >> .tfvars
+databricks_workspace_id = ""
+main/storage/.tfvars    = ""
+' >> .tfvars
 ```

@@ -1,11 +1,11 @@
 environment = "non-prod"
 resourceGroups = {
   "network" = {
-    name = "aue-rg-network-np01"
+    name = "network-np-rg"
   }
 }
 databricks_ncc = {
   non-prod = {
-    name = "aue-dbac-retail-ncc-np01"
+    name = "swuce-np-ac"
   }
 }

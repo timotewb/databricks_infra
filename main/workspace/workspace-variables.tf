@@ -75,8 +75,3 @@ variable "tenant_id" {
     type        = string
     sensitive   = true
 }
-variable "admin_user_id" {
-  description = "ID of the admin user for the Databricks workspace"
-  type        = number
-  default     = 0 # Default can be overridden in tfvars or via command line
-}

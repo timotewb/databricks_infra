@@ -71,14 +71,14 @@ variable "catalog_grant_templates"{
   "read" = ["USE_CATALOG", "USE_SCHEMA", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT"]
   "write3" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH"]
   "write2" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME"]
-  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE"]
+  "write1" = ["USE_CATALOG", "USE_SCHEMA", "APPLY_TAG", "BROWSE", "EXECUTE", "READ_VOLUME", "SELECT", "MODIFY", "REFRESH", "WRITE_VOLUME", "CREATE_SCHEMA"]
   }
 }
 variable "workspace_names" {
   description = "Map of workspace names keyed by environment"
   type        = map(string)
   default = {
-    "dev"  = "dev-retail-data-core"
+    "dev"  = "swuce-np-dbrws"
     "test" = "test-retail-data-core"
     "prod" = "prod-retail-data-core"
     "ana"  = "prod-retail-analyst"
@@ -89,7 +89,7 @@ variable "workspace_ids" {
   description = "Map of workspace ids keyed by environment"
   type        = map(number)
   default = {
-    "dev"  = 3314672737661664
+    "dev"  = 1406364734882126
     "test" = 1952610885136542
     "prod" = 3939779496654265
     "ana"  = 3754814852473328
@@ -100,7 +100,7 @@ variable "workspace_urls" {
   description = "Map of workspace urls keyed by environment"
   type        = map(string)
   default = {
-    "dev"  = "https://adb-3314672737661664.4.azuredatabricks.net"
+    "dev"  = "https://adb-1406364734882126.6.azuredatabricks.net/"
     "test" = "https://adb-1952610885136542.2.azuredatabricks.net"
     "prod" = "https://adb-3939779496654265.5.azuredatabricks.net"
     "ana"  = "https://adb-3754814852473328.8.azuredatabricks.net"
